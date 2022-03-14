@@ -6,7 +6,11 @@ var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"
 var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 var number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 var specialChar = ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~"];
-
+var noNumber = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~"];
+var noSpecial = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", 1, 2, 3, 4, 5, 6, 7, 8, 9];
+var noUpper = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~", 1, 2, 3, 4, 5, 6, 7, 8, 9];
+var noLower = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~", 1, 2, 3, 4, 5, 6, 7, 8, 9];
+var allChar = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~", 1, 2, 3, 4, 5, 6, 7, 8, 9];
 // Write password to the #password input
 function writePassword() {
 
@@ -54,32 +58,32 @@ function generatePassword() {
     userChoice = lowerCase;
 
     // two options have been chosen
-  } else if (confirmNumber && confirmSpecialChar) {
+  } else if (confirmNumber && confirmSpecialChar && !confirmUppercase && !confirmlowercase) {
     userChoice = number.concat(specialChar);
-  } else if (confirmNumber && confirmUppercase) {
+  } else if (confirmNumber && confirmUppercase && !confirmSpecialChar && !confirmlowercase) {
     userChoice = number.concat(upperCase);
-  } else if (confirmNumber && confirmlowercase) {
+  } else if (confirmNumber && confirmlowercase && !confirmUppercase && !confirmSpecialChar) {
     userChoice = number.concat(lowerCase);
-  } else if (confirmUppercase && confirmlowercase) {
+  } else if (confirmUppercase && confirmlowercase && !confirmNumber && !confirmSpecialChar) {
     userChoice = upperCase.concat(lowerCase);
-  } else if (confirmUppercase && confirmSpecialChar) {
+  } else if (confirmUppercase && confirmSpecialChar && !confirmlowercase && !confirmNumber) {
     userChoice = upperCase.concat(specialChar);
-  } else if (confirmlowercase && specialChar) {
+  } else if (confirmlowercase && specialChar && !confirmUppercase && !confirmNumber) {
     userChoice = lowerCase.concat(specialChar);
 
     // three options have been chosen  
-  } else if (confirmNumber && confirmSpecialChar && confirmlowercase) {
-    userChoice = number.concat(specialChar, lowerCase);
-  } else if (confirmNumber && confirmSpecialChar && confirmUppercase) {
-    userChoice = number.concat(specialChar, upperCase);
-  } else if (confirmSpecialChar && confirmUppercase && confirmlowercase) {
-    userChoice = specialChar.concat(upperCase, lowerCase);
-  } else if (confirmNumber && confirmUppercase && confirmlowercase) {
-    userChoice = number.concat(upperCase, lowerCase);
+  } else if (confirmNumber && confirmSpecialChar && confirmlowercase && !confirmUppercase) {
+    userChoice = noUpper;
+  } else if (confirmNumber && confirmSpecialChar && confirmUppercase && !confirmlowercase) {
+    userChoice = noLower;
+  } else if (confirmSpecialChar && confirmUppercase && confirmlowercase && !confirmNumber) {
+    userChoice = noNumber;
+  } else if (confirmNumber && confirmUppercase && confirmlowercase && !confirmSpecialChar) {
+    userChoice = noSpecial;
 
     //all options have been chosen  
-  } else {
-    userChoice = lowerCase.concat(upperCase, number, specialChar);
+  } if (confirmSpecialChar && confirmNumber && confirmUppercase && confirmlowercase) {
+    userChoice = allChar;
   }
 
   let newPassword = [];
